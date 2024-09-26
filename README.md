@@ -12,3 +12,6 @@ This project is of interest to me because I have always enjoyed music. I listen 
 ## User Stories
 - As a user, I want to be able to add a song to my playlist.
 - As a user, I want to be able to view the list of song titles in my playlist.
+- As a user, I want to be able to remove a song from my playlist.
+- As a user, I want to be able to choose a song from my playlist and give it a rating out of 5.
+- As a user, I want to be able to give a song a review.
