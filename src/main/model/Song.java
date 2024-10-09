@@ -2,9 +2,10 @@ package model;
 
 public class Song {
 
-    // REQUIRES: length of title > 0
-    // EFFECTS: creates a song with given title, rating of 0, and an empty review
-    public Song(String title) {
+    // REQUIRES: length of title > 0, length of artist > 0, length of genre > 0
+    // EFFECTS: creates a song with given title, given artist, given genre,
+    //          rating of 0, and an empty review
+    public Song(String title, String artist, String genre) {
         // stub
     }
 
@@ -12,6 +13,20 @@ public class Song {
     // MODIFIES: this
     // EFFECTS: sets this song's title to given title
     public void setTitle(String title) {
+        // stub
+    }
+
+    // REQUIRES: length of artist > 0
+    // MODIFIES: this
+    // EFFECTS: sets this song's artist to given artist
+    public void setArtist(String artist) {
+        // stub
+    }
+
+    // REQUIRES: length of genre > 0
+    // MODIFIES: this
+    // EFFECTS: sets this song's genre to given genre
+    public void setGenre(String genre) {
         // stub
     }
 
@@ -30,6 +45,14 @@ public class Song {
     }
 
     public String getTitle() {
+        return null; // stub
+    }
+
+    public String getArtist() {
+        return null; // stub
+    }
+
+    public String getGenre() {
         return null; // stub
     }
 
