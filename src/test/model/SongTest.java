@@ -14,7 +14,6 @@ public class SongTest {
         testSong = new Song("TT", "Twice", "KPop");
     }
 
-    // TODO
     @Test
     void testConstructor() {
         assertEquals("TT", testSong.getTitle());
@@ -24,35 +23,30 @@ public class SongTest {
         assertEquals("", testSong.getReview());
     }
 
-    // TODO
     @Test
     void testSetTitle() {
         testSong.setTitle("FANCY");
         assertEquals("FANCY", testSong.getTitle());
     }
 
-    // TODO
     @Test
     void testSetArtist() {
         testSong.setArtist("New Jeans");
         assertEquals("New Jeans", testSong.getArtist());
     }
 
-    // TODO
     @Test
     void testSetGenre() {
         testSong.setGenre("R&B");
         assertEquals("R&B", testSong.getGenre());
     }
 
-    // TODO
     @Test
     void testSetRating() {
         testSong.setRating(4);
         assertEquals(4, testSong.getRating());
     }
 
-    // TODO
     @Test
     void testSetReview() {
         testSong.setReview("I love this song!");
