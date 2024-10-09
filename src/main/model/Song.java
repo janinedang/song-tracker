@@ -2,9 +2,9 @@ package model;
 
 public class Song {
 
-    // REQUIRES: length of title > 0, 1 <= rating <= 5, 0 < length of review <= 150
-    // EFFECTS: creates a song with given title, given rating, and given review
-    public Song(String title, int rating, String review) {
+    // REQUIRES: length of title > 0
+    // EFFECTS: creates a song with given title, rating of 0, and an empty review
+    public Song(String title) {
         // stub
     }
 
