@@ -10,11 +10,6 @@ public class Playlist {
         // stub
     }
 
-    // EFFECTS: returns list of songs in this playlist
-    public ArrayList<Song> viewSongs() {
-        return null; // stub
-    }
-
     // REQUIRES: length of title > 0, length of artist > 0, length of genre > 0
     // MODIFIES: this
     // EFFECTS: creates song with given title, given artist, and given genre and adds it to 
