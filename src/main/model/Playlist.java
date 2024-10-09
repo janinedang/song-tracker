@@ -59,4 +59,12 @@ public class Playlist {
     public boolean inPlaylist(String title, String artist) {
         return false; // stub
     }
+
+    public ArrayList<Song> getPlaylist() {
+        return null; // stub
+    }
+
+    public String getName() {
+        return null; // stub
+    }
 }
