@@ -10,39 +10,41 @@ public class Playlist {
         // stub
     }
 
-    // REQUIRES: length of title > 0, length of artist > 0, length of genre > 0
+    // REQUIRES: song with given title && given artist not in playlist, 
+    //           length of title > 0, length of artist > 0, length of genre > 0
     // MODIFIES: this
     // EFFECTS: creates song with given title, given artist, and given genre and adds it to 
-    //          next empty slot in this playlist only if there are no other songs with the same title && artist
+    //          next empty slot in this playlist
     public void addSong(String title, String artist, String genre) {
         // stub
     }
 
-    // REQUIRES: length of title > 0, length of artist > 0
+    // REQUIRES: song with the given title && given artist in playlist,
+    //           length of title > 0, length of artist > 0
     // MODIFIES: this
-    // EFFECTS: removes song with given title and given artist from this playlist,
-    //          if there is no song with the given title && given artist then list stays the same
+    // EFFECTS: removes song with given title and given artist from this playlist
     public void removeSong(String title, String artist) {
         // stub
     }
 
-    // REQUIRES: length of title > 0, length of artist > 0, 1 <= rating <= 5
+    // REQUIRES: song with the given title && given artist in playlist,
+    //           length of title > 0, length of artist > 0, 1 <= rating <= 5
     // MODIFIES: this
-    // EFFECTS: sets song with given title and given artist in this playlist to have the given rating,
-    //          if there is no song with the given title && given artist then its rating stays the same
+    // EFFECTS: sets song with given title and given artist in this playlist to have the given rating
     public void rateSong(String title, String artist, int rating) {
         // stub
     }
 
-    // REQUIRES: length of title > 0, length of artist > 0, 0 < length of review <= 150
+    // REQUIRES: song with the given title && given artist in playlist,
+    //           length of title > 0, length of artist > 0, 0 < length of review <= 150
     // MODIFIES: this
-    // EFFECTS: sets the song with the given title and given artist in this playlist to have the given review,
-    //          if there is no song with the given title && given artist then its review stays the same
+    // EFFECTS: sets the song with the given title and given artist in this playlist to have the given review
     public void reviewSong(String title, String artist, String review) {
         // stub
     }
 
-    // REQUIRES: length of title > 0, length of artist > 0
+    // REQUIRES: song with the given title && given artist in playlist,
+    //           length of title > 0, length of artist > 0
     // EFFECTS: returns the song with the given title and given artist
     public Song getSong(String title, String artist) {
         return null; // stub
