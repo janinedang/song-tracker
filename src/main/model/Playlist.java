@@ -26,7 +26,7 @@ public class Playlist {
     // REQUIRES: length of title > 0, length of artist > 0
     // MODIFIES: this
     // EFFECTS: removes song with given title and given artist from this playlist,
-    //          if there is no song with the given title && given artist then the review stays the same
+    //          if there is no song with the given title && given artist then list stays the same
     public void removeSong(String title, String artist) {
         // stub
     }
