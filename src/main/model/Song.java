@@ -1,66 +1,75 @@
 package model;
 
 public class Song {
+    private String title;
+    private String artist;
+    private String genre;
+    private int rating;
+    private String review;
 
     // REQUIRES: length of title > 0, length of artist > 0, length of genre > 0
     // EFFECTS: creates a song with given title, given artist, given genre,
     //          rating of 1, and an empty review
     public Song(String title, String artist, String genre) {
-        // stub
+        this.title = title;
+        this.artist = artist;
+        this.genre = genre;
+        this.rating = 1;
+        this.review = "";
     }
 
     // REQUIRES: length of title > 0
     // MODIFIES: this
     // EFFECTS: sets this song's title to given title
     public void setTitle(String title) {
-        // stub
+        this.title = title;
     }
 
     // REQUIRES: length of artist > 0
     // MODIFIES: this
     // EFFECTS: sets this song's artist to given artist
     public void setArtist(String artist) {
-        // stub
+        this.artist = artist;
     }
 
     // REQUIRES: length of genre > 0
     // MODIFIES: this
     // EFFECTS: sets this song's genre to given genre
     public void setGenre(String genre) {
-        // stub
+        this.genre = genre;
     }
 
     // REQUIRES: 1 <= rating <= 5
     // MODIFIES: this
     // EFFECTS: sets this song's rating to given rating
     public void setRating(int rating) {
-        // stub
+        this.rating = rating;
     }
 
     // REQUIRES: 0 < length of review <= 150
     // MODIFIES: this
     // EFFECTS: sets this song's review to given review
     public void setReview(String review) {
-        // stub
+        this.review = review;
     }
 
     public String getTitle() {
-        return null; // stub
+        return title; 
     }
 
     public String getArtist() {
-        return null; // stub
+        return artist; 
     }
 
     public String getGenre() {
-        return null; // stub
+        return genre;
     }
 
     public int getRating() {
-        return 0; // stub
+        return rating; 
     }
 
     public String getReview() {
-        return null; // stub
+        return review; 
     }
 }
