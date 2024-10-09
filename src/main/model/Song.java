@@ -4,7 +4,7 @@ public class Song {
 
     // REQUIRES: length of title > 0, length of artist > 0, length of genre > 0
     // EFFECTS: creates a song with given title, given artist, given genre,
-    //          rating of 0, and an empty review
+    //          rating of 1, and an empty review
     public Song(String title, String artist, String genre) {
         // stub
     }
