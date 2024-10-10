@@ -21,7 +21,7 @@ public class PlaylistApp {
 
     // MODIFIES: this
     // EFFECTS: processes input from user
-    private void processInput(String input) {
+    private void processCommand(String command) {
         // stub
     }
 
