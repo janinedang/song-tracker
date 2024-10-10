@@ -9,7 +9,7 @@ public class Song {
 
     // REQUIRES: length of title > 0, length of artist > 0, length of genre > 0
     // EFFECTS: creates a song with given title, given artist, given genre,
-    //          rating of 1, and an empty review
+    // rating of 1, and an empty review
     public Song(String title, String artist, String genre) {
         this.title = title;
         this.artist = artist;
@@ -54,11 +54,11 @@ public class Song {
     }
 
     public String getTitle() {
-        return title; 
+        return title;
     }
 
     public String getArtist() {
-        return artist; 
+        return artist;
     }
 
     public String getGenre() {
@@ -66,10 +66,10 @@ public class Song {
     }
 
     public int getRating() {
-        return rating; 
+        return rating;
     }
 
     public String getReview() {
-        return review; 
+        return review;
     }
 }
