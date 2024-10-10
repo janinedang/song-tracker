@@ -63,23 +63,6 @@ public class PlaylistTest {
     }
 
     @Test
-    void testAddSameSong() {
-        testPlaylist.addSong("Butter", "BTS", "KPop");
-        testPlaylist.addSong("Butter", "BTS", "KPop");
-        ArrayList<Song> songs = testPlaylist.getPlaylist();
-
-        assertEquals(1, songs.size());
-        assertTrue(testPlaylist.inPlaylist("Butter", "BTS"));
-    
-        assertEquals("Butter", songs.get(0).getTitle());
-        assertEquals("BTS", songs.get(0).getArtist());
-        assertEquals("KPop", songs.get(0).getGenre());
-        assertEquals(1, songs.get(0).getRating());
-        assertEquals("", songs.get(0).getReview());
-    }
-
-    // TODO
-    @Test
     void testRemoveSongItemInList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         ArrayList<Song> songs = testPlaylist.getPlaylist();
@@ -91,7 +74,6 @@ public class PlaylistTest {
         assertFalse(testPlaylist.inPlaylist("Butter", "BTS"));
     }
 
-    // TODO
     @Test
     void testRemoveFirstItemLongList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
@@ -140,7 +122,6 @@ public class PlaylistTest {
         assertEquals("", songs.get(1).getReview());
     }
 
-    // TODO
     @Test
     void testRateSongInList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
@@ -148,6 +129,7 @@ public class PlaylistTest {
         assertEquals(3, testPlaylist.getSong("Butter", "BTS").getRating());
     }
 
+    @Test
     void testRateSongSameRating() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         testPlaylist.rateSong("Butter", "BTS", 2);
@@ -155,7 +137,6 @@ public class PlaylistTest {
         assertEquals(2, testPlaylist.getSong("Butter", "BTS").getRating());
     }
 
-    // TODO 
     @Test
     void testRateSongMiddleItemLongList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
@@ -165,7 +146,6 @@ public class PlaylistTest {
         assertEquals(5, testPlaylist.getSong("Clementine", "grentperez").getRating());
     }
 
-    // TODO
     @Test
     void testReviewSongInList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
@@ -173,7 +153,14 @@ public class PlaylistTest {
         assertEquals("This song is slippery like butter!", testPlaylist.getSong("Butter", "BTS").getReview());
     }
 
-    // TODO
+    @Test
+    void testReviewSongSameReview() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.reviewSong("Butter", "BTS", "I LOVE BTS");
+        testPlaylist.reviewSong("Butter", "BTS", "I LOVE BTS");
+        assertEquals("I LOVE BTS", testPlaylist.getSong("Butter", "BTS").getReview());
+    }
+
     @Test
     void testReviewSongMiddleItemLongList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
@@ -181,5 +168,37 @@ public class PlaylistTest {
         testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
         testPlaylist.reviewSong("Clementine", "grentperez", "I love this song!");
         assertEquals("I love this song!", testPlaylist.getSong("Clementine", "grentperez").getReview());
+    }
+
+    @Test
+    void testGetSongInList() {
+        testPlaylist.addSong("TT", "TWICE", "KPop");
+        assertEquals("TT", testPlaylist.getSong("TT", "TWICE").getTitle());
+        assertEquals("TWICE", testPlaylist.getSong("TT", "TWICE").getArtist());
+        assertEquals("TWICE", testPlaylist.getSong("TT", "TWICE").getArtist());
+    }
+
+    @Test
+    void testGetSongSameTitleDiffArtist() {
+        testPlaylist.addSong("Baby", "TWICE", "KPop");
+        assertEquals(null, testPlaylist.getSong("Baby", "Justin Bieber"));
+    }
+
+    @Test
+    void testGetSongDiffTitleSameArtist() {
+        testPlaylist.addSong("TT", "TWICE", "KPop");
+        assertEquals(null, testPlaylist.getSong("FANCY", "TWICE"));
+    }
+
+    @Test
+    void testInPlaylistFalseSameTitleDiffArtist() {
+        testPlaylist.addSong("TT", "TWICE", "KPop");
+        assertFalse(testPlaylist.inPlaylist("TT", "Justin Bieber"));
+    }
+
+    @Test
+    void testInPlaylistFalseDiffTitleSameArtist() {
+        testPlaylist.addSong("TT", "TWICE", "KPop");
+        assertFalse(testPlaylist.inPlaylist("FANCY", "TWICE"));
     }
 }
