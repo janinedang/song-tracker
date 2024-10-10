@@ -158,8 +158,7 @@ public class PlaylistApp {
 
             if (playlist.inPlaylist(rateTitle, rateArtist)) {
                 System.out.println("\nGive " + rateTitle + " by " + rateArtist + " a rating from 1-5:");
-                int rating = input.nextInt();
-                input.nextLine();
+                int rating = Integer.parseInt(input.nextLine());
 
                 if (rating >= 1 && rating <= 5) {
                     playlist.rateSong(rateTitle, rateArtist, rating);
