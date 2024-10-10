@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a playlist with a name and a list of songs in the order in which they were added
 public class Playlist {
     private ArrayList<Song> playlist;
     private String name;

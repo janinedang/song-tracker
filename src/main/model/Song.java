@@ -1,5 +1,6 @@
 package model;
 
+// Represents a song with a title, artist, genre, rating, and a review
 public class Song {
     private String title;
     private String artist;
