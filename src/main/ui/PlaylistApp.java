@@ -83,7 +83,8 @@ public class PlaylistApp {
     }
 
     // EFFECTS: prints current songs in playlist with its title, artist, genre,
-    // rating, and review in order of addition
+    // rating, and review in order of addition only if there are songs in playlist,
+    // if there are no songs user is told that there are no songs in playlist
     private void doViewSongs() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to view in " + playlist.getName());
@@ -106,7 +107,9 @@ public class PlaylistApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: prompts user to add a song with a title, artist, and genre
+    // EFFECTS: prompts user to add a song with a title, artist, and genre only if
+    // there are songs in playlist, if there are no songs user is told that there
+    // are no songs in playlist
     private void doAddSong() {
         String addTitle = askSongTitle();
         String addArtist = askSongArtist();
@@ -123,6 +126,8 @@ public class PlaylistApp {
 
     // MODIFIES: this
     // EFFECTS: prompts user to choose a song to remove from playlist and removes it
+    // only if there are songs in playlist, if there are no songs user is told that
+    // there are no songs in playlist
     private void doRemoveSong() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to remove in " + playlist.getName());
@@ -142,7 +147,8 @@ public class PlaylistApp {
 
     // REQUIRES: user input for rating must be an integer
     // MODIFIES: this
-    // EFFECTS: prompts user to rate the chosen song from 1-5
+    // EFFECTS: prompts user to rate the chosen song from 1-5 only if there are songs in playlist,
+    // if there are no songs user is told that there are no songs in playlist
     private void doRateSong() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to rate in " + playlist.getName());
@@ -170,7 +176,8 @@ public class PlaylistApp {
 
     // MODIFIES: this
     // EFFECTS: prompts user to give a review of the chosen song using 1-150
-    // characters, if review length not from 1-150, review is not accepted
+    // characters only if there are songs in playlist, if there are no songs user 
+    // is told that there are no songs in playlist
     private void doReviewSong() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to review in " + playlist.getName());
