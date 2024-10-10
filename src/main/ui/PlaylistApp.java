@@ -182,4 +182,61 @@ public class PlaylistApp {
             System.out.println("\n" + reviewTitle + " by " + reviewArtist + " is not in " + playlist.getName());
         }
     }
+
+    // EFFECTS: prompts user for a song title, if song title has a length of zero
+    // the user will be prompted until given a title with length > 0 and 
+    // returns the given title
+    private String askSongTitle() {
+        String askTitle = "";
+        boolean lengthZero = true;
+
+        while (lengthZero) {
+            System.out.println("\nWhat is the title of the song?");
+            askTitle = input.nextLine();
+            if (askTitle.length() > 0) {
+                lengthZero = false;
+            } else {
+                System.out.println("\nPlease enter a valid song title");
+            }
+        }
+        return askTitle;
+    }
+
+    // EFFECTS: prompts user for an artist name, if artist has a length of zero
+    // the user will be prompted until given an artist with length > 0 and 
+    // returns the given artist name
+    private String askSongArtist() {
+        String askArtist = "";
+        boolean lengthZero = true;
+
+        while (lengthZero) {
+            System.out.println("\nWho is the artist?");
+            askArtist = input.nextLine();
+            if (askArtist.length() > 0) {
+                lengthZero = false;
+            } else {
+                System.out.println("\nPlease enter a valid artist name");
+            }
+        }
+        return askArtist;
+    }
+
+    // EFFECTS: prompts user for a genre, if genre has a length of zero
+    // the user will be prompted until given a genre with length > 0 and 
+    // returns the given genre
+    private String askSongGenre() {
+        String askGenre = "";
+        boolean lengthZero = true;
+
+        while (lengthZero) {
+            System.out.println("\nWhat is the genre?");
+            askGenre = input.nextLine();
+            if (askGenre.length() > 0) {
+                lengthZero = false;
+            } else {
+                System.out.println("\nPlease enter a valid genre");
+            }
+        }
+        return askGenre;
+    }
 }
