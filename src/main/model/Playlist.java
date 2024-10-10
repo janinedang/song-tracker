@@ -18,8 +18,7 @@ public class Playlist {
     // length of title > 0, length of artist > 0, length of genre > 0
     // MODIFIES: this
     // EFFECTS: creates song with given title, given artist, and given genre and
-    // adds it to
-    // next empty slot in this playlist
+    // adds it to next empty slot in this playlist
     public void addSong(String title, String artist, String genre) {
         Song newSong = new Song(title, artist, genre);
         playlist.add(newSong);
@@ -71,9 +70,9 @@ public class Playlist {
     }
 
     // REQUIRES: length of title > 0, length of artist > 0
-    // EFFECTS: returns true if song with given title and given artist is in this
-    // playlist,
-    // false if song with given title and given artist is not in this playlist
+    // EFFECTS: returns true if song with given title and given artist
+    // is in this playlist, false if song with given title and given artist
+    // is not in this playlist
     public boolean inPlaylist(String title, String artist) {
         boolean songInPlaylist = false;
 
