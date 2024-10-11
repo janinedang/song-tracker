@@ -61,13 +61,22 @@ public class PlaylistApp {
     // EFFECTS: prompts user to input a name for the playlist
     // and creates a new empty playlist with the given name
     private void initPlaylist() {
+        boolean validName = false;
         input = new Scanner(System.in);
 
         System.out.println("\n--------------------------------------");
         System.out.println("Welcome to the Playlist Application!");
-        System.out.println("Please create a name for your playlist.");
-        String name = input.nextLine();
-        playlist = new Playlist(name);
+
+        while (!validName) {
+            System.out.println("\nPlease create a name for your playlist (1-20 characters).");
+            String name = input.nextLine();
+            if (name.length() >= 1 && name.length() <= 20) {
+                playlist = new Playlist(name);
+                validName = true;
+            } else {
+                System.out.println("\nPlaylist name is not within 1-20 characters.");
+            }
+        }
     }
 
     // EFFECTS: displays menu of available inputs to user

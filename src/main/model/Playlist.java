@@ -7,7 +7,7 @@ public class Playlist {
     private ArrayList<Song> playlist;
     private String name;
 
-    // REQUIRES: length of name > 0
+    // REQUIRES: 0 < length of name <= 20
     // EFFECTS: creates an empty playlist with the given name
     public Playlist(String name) {
         this.playlist = new ArrayList<>();
