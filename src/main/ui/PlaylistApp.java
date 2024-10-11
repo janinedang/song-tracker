@@ -64,7 +64,7 @@ public class PlaylistApp {
         boolean validName = false;
         input = new Scanner(System.in);
 
-        System.out.println("\n--------------------------------------");
+        System.out.println("\n=============================================================");
         System.out.println("Welcome to the Playlist Application!");
 
         while (!validName) {
@@ -81,7 +81,8 @@ public class PlaylistApp {
 
     // EFFECTS: displays menu of available inputs to user
     private void displayMenu() {
-        System.out.println("\n--------------------------------------");
+        System.out.println("\n=============================================================");
+        System.out.println("\nYou are currently in the playlist: " + playlist.getName());
         System.out.println("\nType one of the following options:");
         System.out.println("\t'view': view all songs in " + playlist.getName());
         System.out.println("\t'add': add a new song to " + playlist.getName());
@@ -93,11 +94,12 @@ public class PlaylistApp {
 
     // EFFECTS: prints current songs in playlist with its title, artist, genre,
     // rating, and review in order of addition only if there are songs in playlist,
-    // if there are no songs user is told that there are no songs in playlist
+    // if playlist is empty player is told there are no songs to view
     private void doViewSongs() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to view in " + playlist.getName());
         } else {
+            System.out.println("\n=============================================================");
             System.out.println("\nSongs in " + playlist.getName() + ":");
 
             for (Song nextSong : playlist.getPlaylist()) {
@@ -116,10 +118,11 @@ public class PlaylistApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: prompts user to add a song with a title, artist, and genre only if
-    // there are songs in playlist, if there are no songs user is told that there
-    // are no songs in playlist
+    // EFFECTS: prompts user to add a song with a title, artist, and genre,
+    // if song with same title and artist is already in playlist no song is added
     private void doAddSong() {
+        System.out.println("\nNOTE: songs automatically start with a rating of 1 with no review");
+
         String addTitle = askSongTitle();
         String addArtist = askSongArtist();
         String addGenre = askSongGenre();
@@ -135,8 +138,7 @@ public class PlaylistApp {
 
     // MODIFIES: this
     // EFFECTS: prompts user to choose a song to remove from playlist and removes it
-    // only if there are songs in playlist, if there are no songs user is told that
-    // there are no songs in playlist
+    // only if chosen song is in playlist, if playlist is empty then no song is removed
     private void doRemoveSong() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to remove in " + playlist.getName());
@@ -149,16 +151,20 @@ public class PlaylistApp {
                 System.out.println(
                         "\n" + removeTitle + " by " + removeArtist + " was removed from " + playlist.getName());
             } else {
-                System.out.println("\n" + removeTitle + " by " + removeArtist + " is not in " + playlist.getName());
+                System.out.println("\nNo song was removed because " + removeTitle
+                        + " by " + removeArtist + " is not in " + playlist.getName());
             }
         }
     }
 
     // REQUIRES: user input for rating must be an integer
     // MODIFIES: this
-    // EFFECTS: prompts user to rate the chosen song from 1-5 only if there are songs in playlist,
-    // if there are no songs user is told that there are no songs in playlist
+    // EFFECTS: prompts user to rate a chosen song in the playlist from 1-5,
+    // if playlist is empty or if chosen song is not in playlist then 
+    // no rating is set
     private void doRateSong() {
+        boolean validRating = false;
+
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to rate in " + playlist.getName());
         } else {
@@ -166,27 +172,32 @@ public class PlaylistApp {
             String rateArtist = askSongArtist();
 
             if (playlist.inPlaylist(rateTitle, rateArtist)) {
-                System.out.println("\nGive " + rateTitle + " by " + rateArtist + " a rating from 1-5:");
-                int rating = Integer.parseInt(input.nextLine());
+                while (!validRating) {
+                    System.out.println("\nGive " + rateTitle + " by " + rateArtist + " a rating from 1-5:");
+                    int rating = Integer.parseInt(input.nextLine());
 
-                if (rating >= 1 && rating <= 5) {
-                    playlist.rateSong(rateTitle, rateArtist, rating);
-                    System.out.println("\n" + rateTitle + " by " + rateArtist + " was given a rating of " + rating);
-                } else {
-                    System.out.println("\n" + rating + " is not a valid rating");
-                    System.out.println("Only ratings from 1-5 are accepted");
+                    if (rating >= 1 && rating <= 5) {
+                        playlist.rateSong(rateTitle, rateArtist, rating);
+                        System.out.println("\n" + rateTitle + " by " + rateArtist + " was given a rating of " + rating);
+                        validRating = true;
+                    } else {
+                        System.out.println("\n" + rating + " is not a valid rating");
+                        System.out.println("Only ratings from 1-5 are accepted");
+                    }
                 }
             } else {
-                System.out.println("\n" + rateTitle + " by " + rateArtist + " is not in " + playlist.getName());
+                System.out.println("\nThis song cannot be rated as it is not in " + playlist.getName());
             }
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: prompts user to give a review of the chosen song using 1-150
-    // characters only if there are songs in playlist, if there are no songs user 
-    // is told that there are no songs in playlist
+    // EFFECTS: prompts user to choose a song in the playlist and give it a review 
+    // with length 1-150, if playlist is empty or chosen song not in playlist 
+    // then no review is set
     private void doReviewSong() {
+        boolean validReview = false;
+
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to review in " + playlist.getName());
         } else {
@@ -194,32 +205,32 @@ public class PlaylistApp {
             String reviewArtist = askSongArtist();
 
             if (playlist.inPlaylist(reviewTitle, reviewArtist)) {
-                System.out.println("\nGive " + reviewTitle + " by " + reviewArtist + " a review (1-150 characters):");
-                String review = input.nextLine();
+                while (!validReview) {
+                    System.out.println("\nReview " + reviewTitle + " by " + reviewArtist + " (1-150 characters):");
+                    String review = input.nextLine();
 
-                if (review.length() >= 1 && review.length() <= 150) {
-                    playlist.reviewSong(reviewTitle, reviewArtist, review);
-                    System.out.println("\n" + reviewTitle + " by " + reviewArtist + " was given the review:");
-                    System.out.println("\t" + review);
-                } else {
-                    System.out.println("\nYour review has " + review.length() + " characters");
-                    System.out.println("Only reviews within 1-150 characters are accepted.");
+                    if (review.length() >= 1 && review.length() <= 150) {
+                        playlist.reviewSong(reviewTitle, reviewArtist, review);
+                        System.out.println("\n" + reviewTitle + " by " + reviewArtist + " was given the review: ");
+                        System.out.println("\t" + review);
+                        validReview = true;
+                    } else {
+                        System.out.println("\nOnly reviews within 1-150 characters are accepted.");
+                    }
                 }
             } else {
-                System.out.println("\n" + reviewTitle + " by " + reviewArtist + " is not in " + playlist.getName());
+                System.out.println("\nThis song cannot be reviewed as it is not in " + playlist.getName());
             }
         }
     }
 
-    // EFFECTS: prompts user for a song title, if song title has a length of zero
-    // the user will be prompted until given a title with length > 0 and
-    // returns the given title
+    // EFFECTS: prompts user for a song title of length > 0 and returns title
     private String askSongTitle() {
         String askTitle = "";
         boolean lengthZero = true;
 
         while (lengthZero) {
-            System.out.println("\nWhat is the title of the song?");
+            System.out.println("\nWhat is the title of the song? (Case Sensitive!)");
             askTitle = input.nextLine();
 
             if (askTitle.length() > 0) {
@@ -231,15 +242,13 @@ public class PlaylistApp {
         return askTitle;
     }
 
-    // EFFECTS: prompts user for an artist name, if artist has a length of zero
-    // the user will be prompted until given an artist with length > 0 and
-    // returns the given artist name
+    // EFFECTS: prompts user for an artist name of length > 0 and returns artist
     private String askSongArtist() {
         String askArtist = "";
         boolean lengthZero = true;
 
         while (lengthZero) {
-            System.out.println("\nWho is the artist?");
+            System.out.println("\nWho is the artist? (Case Sensitive!)");
             askArtist = input.nextLine();
 
             if (askArtist.length() > 0) {
@@ -251,9 +260,7 @@ public class PlaylistApp {
         return askArtist;
     }
 
-    // EFFECTS: prompts user for a genre, if genre has a length of zero
-    // the user will be prompted until given a genre with length > 0 and
-    // returns the given genre
+    // EFFECTS: prompts user for genre of length > 0 and returns genre
     private String askSongGenre() {
         String askGenre = "";
         boolean lengthZero = true;
