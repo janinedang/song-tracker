@@ -82,13 +82,13 @@ public class PlaylistApp {
     // EFFECTS: displays menu of available inputs to user
     private void displayMenu() {
         System.out.println("\n--------------------------------------");
-        System.out.println("\nSelect one of the following options:");
-        System.out.println("\tview: view all songs in " + playlist.getName());
-        System.out.println("\tadd: add a new song to " + playlist.getName());
-        System.out.println("\tremove: remove a song from " + playlist.getName());
-        System.out.println("\trate: rate a song in " + playlist.getName());
-        System.out.println("\treview: review a song in " + playlist.getName());
-        System.out.println("\tquit: quit the application");
+        System.out.println("\nType one of the following options:");
+        System.out.println("\t'view': view all songs in " + playlist.getName());
+        System.out.println("\t'add': add a new song to " + playlist.getName());
+        System.out.println("\t'remove': remove a song from " + playlist.getName());
+        System.out.println("\t'rate': rate a song in " + playlist.getName());
+        System.out.println("\t'review': review a song in " + playlist.getName());
+        System.out.println("\t'quit': quit the application");
     }
 
     // EFFECTS: prints current songs in playlist with its title, artist, genre,
