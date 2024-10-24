@@ -18,8 +18,12 @@ public class PlaylistApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    // EFFECTS: runs the Playlist application
+    // EFFECTS: initializes scanner, json writer, and json reader, 
+    // and runs the Playlist application 
     public PlaylistApp() {
+        input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runPlaylist();
     }
 
@@ -29,7 +33,10 @@ public class PlaylistApp {
         boolean keepGoing = true;
         String command = null;
 
-        initPlaylist();
+        System.out.println("\n=============================================================");
+        System.out.println("Welcome to the Playlist Application!");
+
+        askLoadPlaylist();
 
         while (keepGoing) {
             displayMenu();
@@ -44,6 +51,30 @@ public class PlaylistApp {
         }
 
         System.out.println("\nThank you for using the Playlist Application! Goodbye!");
+    }
+
+    // EFFECTS: asks user to load playlist, if they choose no then user is asked
+    // to create a new playlist. if user chooses to load playlist but there is no playlist 
+    // that can be loaded, user is asked to create a new playlist.
+    private void askLoadPlaylist() {
+        boolean validAnswer = false;
+
+        while (!validAnswer) {
+            System.out.println("\nWould you like to load your playlist? (y / n)");
+            String answer = input.nextLine();
+            if (answer.equals("y")) {
+                boolean loaded = loadPlaylist();
+                if (!loaded) {
+                    initPlaylist();
+                }
+                validAnswer = true;
+            } else if (answer.equals("n")) {
+                initPlaylist();
+                validAnswer = true;
+            } else {
+                System.out.println("\nYour input was invalid. Please try again.");
+            }
+        }
     }
 
     // MODIFIES: this
@@ -69,10 +100,6 @@ public class PlaylistApp {
     // and creates a new empty playlist with the given name
     private void initPlaylist() {
         boolean validName = false;
-        input = new Scanner(System.in);
-
-        System.out.println("\n=============================================================");
-        System.out.println("Welcome to the Playlist Application!");
 
         while (!validName) {
             System.out.println("\nPlease create a name for your playlist (1-20 characters).");
@@ -303,12 +330,14 @@ public class PlaylistApp {
     // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // MODIFIES: this
     // EFFECTS: loads playlist from file
-    private void loadPlaylist() {
+    private boolean loadPlaylist() {
         try {
             playlist = jsonReader.read();
-            System.out.println("Loaded " + playlist.getName() + " from " + JSON_STORE);
+            System.out.println("\nLoaded " + playlist.getName() + " from " + JSON_STORE);
+            return true;
         } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            System.out.println("\nUnable to read from file: " + JSON_STORE);
+            return false;
         }
     }
 }
