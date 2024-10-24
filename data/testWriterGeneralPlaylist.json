@@ -1,0 +1,27 @@
+{
+    "songs": [
+        {
+            "title": "FANCY",
+            "artist": "TWICE",
+            "genre": "K-Pop",
+            "rating": 4,
+            "review": "I love this song!"
+            
+        }, 
+        {
+            "title": "Finesse",
+            "artist": "Bruno Mars",
+            "genre": "Pop",
+            "rating": 5,
+            "review": "Amazing song, so catchy!"
+        },
+        {
+            "title": "Creep",
+            "artist": "Radiohead",
+            "genre": "Alternative",
+            "rating": 3,
+            "review": "I'm a creep..."
+        }
+    ],
+    "name": "My playlist"
+}
