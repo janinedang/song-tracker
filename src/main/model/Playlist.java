@@ -99,15 +99,27 @@ public class Playlist implements Writable {
         return name;
     }
 
+    // Referenced from the JsonSerialization Demo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: creates JSON object of the playlist
     @Override
     public JSONObject toJson() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("songs", songsToJson());
+        return json;
     }
 
+    // Referenced from the JsonSerialization Demo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: returns things in this workroom as a JSON array
     private JSONArray songsToJson() {
-        return null; // stub
+        JSONArray jsonArray = new JSONArray();
+
+        for (Song song : playlist) {
+            jsonArray.put(song.toJson());
+        }
+
+        return jsonArray;
     }
 }

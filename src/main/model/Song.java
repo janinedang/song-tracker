@@ -78,10 +78,18 @@ public class Song implements Writable {
         return review;
     }
 
+    // Referenced from the JsonSerialization Demo
+    // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: creates a JSON object from this song
     @Override
     public JSONObject toJson() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("artist", artist);
+        json.put("genre", genre);
+        json.put("rating", rating);
+        json.put("review", review);
+
+        return json;
     }
 }
