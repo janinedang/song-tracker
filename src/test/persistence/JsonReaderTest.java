@@ -25,7 +25,7 @@ class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderEmptyWorkRoom() {
+    void testReaderEmptyPlaylist() {
         JsonReader reader = new JsonReader("./data/testReaderEmptyPlaylist.json");
         try {
             Playlist playlist = reader.read();
@@ -37,7 +37,7 @@ class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralWorkRoom() {
+    void testReaderGeneralPlaylist() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralPlaylist.json");
         try {
             Playlist playlist = reader.read();
