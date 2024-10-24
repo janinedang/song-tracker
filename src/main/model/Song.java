@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a song with a title, artist, genre, rating, and a review
-public class Song {
+public class Song implements Writable {
     private String title;
     private String artist;
     private String genre;
@@ -72,5 +76,12 @@ public class Song {
 
     public String getReview() {
         return review;
+    }
+
+    // EFFECTS: creates a JSON object from this song
+    @Override
+    public JSONObject toJson() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
     }
 }

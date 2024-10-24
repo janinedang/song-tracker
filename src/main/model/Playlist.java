@@ -2,8 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 // Represents a playlist with a name and a list of songs in the order in which they were added
-public class Playlist {
+public class Playlist implements Writable {
     private ArrayList<Song> playlist;
     private String name;
 
@@ -92,5 +97,17 @@ public class Playlist {
 
     public String getName() {
         return name;
+    }
+
+    // EFFECTS: creates JSON object of the playlist
+    @Override
+    public JSONObject toJson() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toJson'");
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray songsToJson() {
+        return null; // stub
     }
 }
