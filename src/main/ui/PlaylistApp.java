@@ -50,6 +50,8 @@ public class PlaylistApp {
             }
         }
 
+        askSavePlaylist();
+        
         System.out.println("\nThank you for using the Playlist Application! Goodbye!");
     }
 
@@ -70,6 +72,26 @@ public class PlaylistApp {
                 validAnswer = true;
             } else if (answer.equals("n")) {
                 initPlaylist();
+                validAnswer = true;
+            } else {
+                System.out.println("\nYour input was invalid. Please try again.");
+            }
+        }
+    }
+
+    // EFFECTS: asks user to save playlist, if yes then playlist is saved,
+    // if no playlist is not saved
+    private void askSavePlaylist() {
+        boolean validAnswer = false;
+
+        while (!validAnswer) {
+            System.out.println("\nWould you like to save your playlist? (y / n)");
+            String answer = input.nextLine();
+            if (answer.equals("y")) {
+                savePlaylist();
+                validAnswer = true;
+            } else if (answer.equals("n")) {
+                System.out.println("\nYour playlist will not be saved.");
                 validAnswer = true;
             } else {
                 System.out.println("\nYour input was invalid. Please try again.");
