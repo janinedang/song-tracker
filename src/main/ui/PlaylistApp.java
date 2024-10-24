@@ -18,8 +18,8 @@ public class PlaylistApp {
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
-    // EFFECTS: initializes scanner, json writer, and json reader, 
-    // and runs the Playlist application 
+    // EFFECTS: initializes scanner, json writer, and json reader,
+    // and runs the Playlist application
     public PlaylistApp() {
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -51,13 +51,13 @@ public class PlaylistApp {
         }
 
         askSavePlaylist();
-        
+
         System.out.println("\nThank you for using the Playlist Application! Goodbye!");
     }
 
     // EFFECTS: asks user to load playlist, if they choose no then user is asked
-    // to create a new playlist. if user chooses to load playlist but there is no playlist 
-    // that can be loaded, user is asked to create a new playlist.
+    // to create a new playlist. if user chooses to load playlist but there is no
+    // playlist that can be loaded, user is asked to create a new playlist.
     private void askLoadPlaylist() {
         boolean validAnswer = false;
 
@@ -194,7 +194,8 @@ public class PlaylistApp {
 
     // MODIFIES: this
     // EFFECTS: prompts user to choose a song to remove from playlist and removes it
-    // only if chosen song is in playlist, if playlist is empty then no song is removed
+    // only if chosen song is in playlist, if playlist is empty then no song is
+    // removed
     private void doRemoveSong() {
         if (playlist.getPlaylist().size() == 0) {
             System.out.println("\nThere are currently no songs to remove in " + playlist.getName());
@@ -216,7 +217,7 @@ public class PlaylistApp {
     // REQUIRES: user input for rating must be an integer
     // MODIFIES: this
     // EFFECTS: prompts user to rate a chosen song in the playlist from 1-5,
-    // if playlist is empty or if chosen song is not in playlist then 
+    // if playlist is empty or if chosen song is not in playlist then
     // no rating is set
     private void doRateSong() {
         boolean validRating = false;
@@ -248,8 +249,8 @@ public class PlaylistApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: prompts user to choose a song in the playlist and give it a review 
-    // with length 1-150, if playlist is empty or chosen song not in playlist 
+    // EFFECTS: prompts user to choose a song in the playlist and give it a review
+    // with length 1-150, if playlist is empty or chosen song not in playlist
     // then no review is set
     private void doReviewSong() {
         boolean validReview = false;
