@@ -15,3 +15,5 @@ This project is of interest to me because I have always enjoyed music. I listen 
 - As a user, I want to be able to remove a song from my playlist.
 - As a user, I want to be able to choose a song from my playlist and give it a rating out of 5.
 - As a user, I want to be able to give a song a review.
+- As a user, when I select the quit option from the application menu, I want to be reminded to save my playlist to file and have the option to do so or not.
+- As a user, when I start the application, I want to be given the option to load my playlist from file.
