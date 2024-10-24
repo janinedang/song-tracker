@@ -6,12 +6,17 @@ import java.util.Scanner;
 
 import model.Playlist;
 import model.Song;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 // Playlist application
 // References the TellerApp
 public class PlaylistApp {
+    private static final String JSON_STORE = "./data/playlist.json";
     private Playlist playlist;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the Playlist application
     public PlaylistApp() {
@@ -284,7 +289,14 @@ public class PlaylistApp {
     // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     // EFFECTS: saves the playlist to file
     private void savePlaylist() {
-        // stub
+        try {
+            jsonWriter.open();
+            jsonWriter.write(playlist);
+            jsonWriter.close();
+            System.out.println("Saved " + playlist.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // Referenced from the JsonSerialization Demo
@@ -292,6 +304,11 @@ public class PlaylistApp {
     // MODIFIES: this
     // EFFECTS: loads playlist from file
     private void loadPlaylist() {
-        // stub
+        try {
+            playlist = jsonReader.read();
+            System.out.println("Loaded " + playlist.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
