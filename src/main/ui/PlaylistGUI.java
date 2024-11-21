@@ -29,9 +29,10 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private JButton rateButton;
     private JButton reviewButton;
     private JButton quitButton;
-    
+
     // EFFECTS: constructs a vertically scrollable panel displaying list of songs
-    // from a given playlist and a button panel with add, remove, rate, and review buttons
+    // from a given playlist and a button panel with add, remove, rate, and review
+    // buttons
     public PlaylistGUI(Playlist playlist) {
         super(new BorderLayout());
 
@@ -57,7 +58,8 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a panel displaying the add, remove, rate, and review song buttons
+    // EFFECTS: creates a panel displaying the add, remove, rate, and review song
+    // buttons
     private void initializeButtonPanel() {
         addButton = new JButton(addString);
         addButton.addActionListener(new AddAction());
@@ -67,6 +69,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         removeButton.setEnabled(false);
 
         rateButton = new JButton(rateString);
+        rateButton.addActionListener(new RateAction());
         rateButton.setEnabled(false);
 
         reviewButton = new JButton(reviewString);
@@ -116,11 +119,11 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     // https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
     private void errorPanel(String message) {
         JOptionPane.showMessageDialog(null, message, "System Error",
-                        JOptionPane.ERROR_MESSAGE);
+                JOptionPane.ERROR_MESSAGE);
     }
-    
+
     // MODIFIES: this
-    // EFFECTS: updates add, rate, review, and remove buttons when 
+    // EFFECTS: updates add, rate, review, and remove buttons when
     // selection of list cell changes
     @Override
     public void valueChanged(ListSelectionEvent e) {
@@ -137,18 +140,18 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
             }
         }
     }
-    
+
     // UI to add songs to the playlist
     private class AddAction implements ActionListener {
         private JTextField titleField;
         private JTextField artistField;
         private JTextField genreField;
-        
+
         // EFFECTS: constructs an AddAction object
         public AddAction() {
             // blank
         }
-        
+
         // MODIFIES: this
         // EFFECTS: asks user for song title, artist, and genre and
         // adds it to the playlist, but:
@@ -160,12 +163,12 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
             JPanel addPanel = createAddPanel();
             int result = JOptionPane.showConfirmDialog(null, addPanel,
                     "Please enter the song title, artist, and genre.", JOptionPane.OK_CANCEL_OPTION);
-    
+
             if (result == JOptionPane.OK_OPTION) {
                 String title = titleField.getText();
                 String artist = artistField.getText();
                 String genre = genreField.getText();
-    
+
                 if (title.length() != 0 && artist.length() != 0 && genre.length() != 0) {
                     if (!playlist.inPlaylist(title, artist)) {
                         playlist.addSong(title, artist, genre);
@@ -177,45 +180,42 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                     errorPanel("Please fill all blanks.");
                 }
             }
-            
+
         }
-        
+
         // MODIFIES: this
         // EFFECTS: creates a pop up panel with text fields for
         // the user to input a song's title, artist, and genre
-        // Referenced from https://stackoverflow.com/a/6555051 
+        // Referenced from https://stackoverflow.com/a/6555051
         private JPanel createAddPanel() {
             titleField = new JTextField(5);
             artistField = new JTextField(5);
             genreField = new JTextField(5);
-    
+
             JPanel addPanel = new JPanel();
             addPanel.setLayout(new GridLayout(6, 1, 5, 0));
-    
+
             addPanel.add(new JLabel("Title:"));
             addPanel.add(titleField);
-    
+
             addPanel.add(new JLabel("Artist:"));
             addPanel.add(artistField);
-    
+
             addPanel.add(new JLabel("Genre:"));
             addPanel.add(genreField);
-    
+
             return addPanel;
         }
     }
 
     // UI to remove songs from the playlist
     private class RemoveAction implements ActionListener {
-        private JTextField titleField;
-        private JTextField artistField;
-        private JTextField genreField;
-        
+
         // EFFECTS: constructs a RemoveAction object
         public RemoveAction() {
             // blank
         }
-        
+
         // REQUIRES: an element in playlistJList must be selected
         // MODIFIES: this
         // EFFECTS: removes currently selected list item from playlist
@@ -224,6 +224,40 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
             int index = playlistJList.getSelectedIndex();
             playlist.removeSong(index);
             updatePlaylist();
+        }
+    }
+
+    // UI to remove songs from the playlist
+    private class RateAction implements ActionListener {
+
+        // EFFECTS: constructs a RemoveAction object
+        public RateAction() {
+            // blank
+        }
+
+        // REQUIRES: an element in playlistJList must be selected, user input must be a number
+        // MODIFIES: this
+        // EFFECTS: removes currently selected list item from playlist
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = playlistJList.getSelectedIndex();
+            String userRating = JOptionPane.showInputDialog(null,
+                    "Please enter a rating from 1-5.",
+                    "Rating: ",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            int rating = Integer.parseInt(userRating);
+
+            if (userRating.length() != 0) {
+                if (rating >= 1 && rating <= 5) {
+                    playlist.rateSong(index, rating);
+                    updatePlaylist();
+                } else {
+                    errorPanel(userRating + " is not an accepted rating.");
+                }
+            } else {
+                errorPanel("Please fill all blanks.");
+            }
         }
     }
 }
