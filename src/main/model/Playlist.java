@@ -55,6 +55,16 @@ public class Playlist implements Writable {
         songRate.setRating(rating);
     }
 
+    // REQUIRES: playlist.size() > 0, 0 <= index <= playlist.size() - 1,
+    // 1 <= rating <= 5
+    // MODIFIES: this
+    // EFFECTS: sets the song at the given index in this playlist
+    // to have the given rating
+    public void rateSong(int index, int rating) {
+        Song songReview = playlist.get(index);
+        songReview.setRating(rating);
+    }
+
     // REQUIRES: song with the given title && given artist in playlist,
     // length of title > 0, length of artist > 0, 0 < length of review <= 150
     // MODIFIES: this
@@ -62,6 +72,16 @@ public class Playlist implements Writable {
     // to have the given review
     public void reviewSong(String title, String artist, String review) {
         Song songReview = getSong(title, artist);
+        songReview.setReview(review);
+    }
+
+    // REQUIRES: playlist.size() > 0, 0 <= index <= playlist.size() - 1,
+    // review.length() > 0
+    // MODIFIES: this
+    // EFFECTS: sets the song at the given index in this playlist
+    // to have the given review
+    public void reviewSong(int index, String review) {
+        Song songReview = playlist.get(index);
         songReview.setReview(review);
     }
 

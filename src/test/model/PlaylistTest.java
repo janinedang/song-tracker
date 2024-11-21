@@ -190,10 +190,25 @@ public class PlaylistTest {
     }
 
     @Test
+    void testRateIndexSongInList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.rateSong(0, 3);
+        assertEquals(3, testPlaylist.getSong("Butter", "BTS").getRating());
+    }
+
+    @Test
     void testRateSongSameRating() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         testPlaylist.rateSong("Butter", "BTS", 2);
         testPlaylist.rateSong("Butter", "BTS", 2);
+        assertEquals(2, testPlaylist.getSong("Butter", "BTS").getRating());
+    }
+
+    @Test
+    void testRateIndexSongSameRating() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.rateSong(0, 2);
+        testPlaylist.rateSong(0, 2);
         assertEquals(2, testPlaylist.getSong("Butter", "BTS").getRating());
     }
 
@@ -207,9 +222,25 @@ public class PlaylistTest {
     }
 
     @Test
+    void testRateIndexSongMiddleItemLongList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
+        testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
+        testPlaylist.rateSong(1, 5);
+        assertEquals(5, testPlaylist.getSong("Clementine", "grentperez").getRating());
+    }
+
+    @Test
     void testReviewSongInList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         testPlaylist.reviewSong("Butter", "BTS", "This song is slippery like butter!");
+        assertEquals("This song is slippery like butter!", testPlaylist.getSong("Butter", "BTS").getReview());
+    }
+
+    @Test
+    void testReviewIndexSongInList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.reviewSong(0, "This song is slippery like butter!");
         assertEquals("This song is slippery like butter!", testPlaylist.getSong("Butter", "BTS").getReview());
     }
 
@@ -222,11 +253,28 @@ public class PlaylistTest {
     }
 
     @Test
+    void testReviewIndexSongSameReview() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.reviewSong(0, "I LOVE BTS");
+        testPlaylist.reviewSong(0, "I LOVE BTS");
+        assertEquals("I LOVE BTS", testPlaylist.getSong("Butter", "BTS").getReview());
+    }
+
+    @Test
     void testReviewSongMiddleItemLongList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
         testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
         testPlaylist.reviewSong("Clementine", "grentperez", "I love this song!");
+        assertEquals("I love this song!", testPlaylist.getSong("Clementine", "grentperez").getReview());
+    }
+
+    @Test
+    void testReviewIndexSongMiddleItemLongList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
+        testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
+        testPlaylist.reviewSong(1, "I love this song!");
         assertEquals("I love this song!", testPlaylist.getSong("Clementine", "grentperez").getReview());
     }
 
