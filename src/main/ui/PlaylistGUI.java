@@ -1,4 +1,5 @@
 package ui;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -62,8 +63,15 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         addButton.addActionListener(new AddAction());
 
         removeButton = new JButton(removeString);
+        removeButton.addActionListener(new RemoveAction());
+        removeButton.setEnabled(false);
+
         rateButton = new JButton(rateString);
+        rateButton.setEnabled(false);
+
         reviewButton = new JButton(reviewString);
+        reviewButton.setEnabled(false);
+
         quitButton = new JButton(quitString);
 
         JPanel buttonPane = new JPanel();
@@ -119,12 +127,10 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         if (e.getValueIsAdjusting() == false) {
 
             if (playlistJList.getSelectedIndex() == -1) {
-                addButton.setEnabled(false);
                 removeButton.setEnabled(false);
                 rateButton.setEnabled(false);
                 reviewButton.setEnabled(false);
             } else {
-                addButton.setEnabled(true);
                 removeButton.setEnabled(true);
                 rateButton.setEnabled(true);
                 reviewButton.setEnabled(true);
@@ -197,26 +203,27 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     
             return addPanel;
         }
+    }
 
-        private void addPanelInput(JPanel addPanel) {
-            int result = JOptionPane.showConfirmDialog(null, addPanel,
-                    "Please enter the song title, artist, and genre.", JOptionPane.OK_CANCEL_OPTION);
-    
-            if (result == JOptionPane.OK_OPTION) {
-                String title = titleField.getText();
-                String artist = artistField.getText();
-                String genre = genreField.getText();
-    
-                if (title.length() != 0 && artist.length() != 0 && genre.length() != 0) {
-                    if (!playlist.inPlaylist(title, artist)) {
-
-                    } else {
-                        errorPanel("This song is already in your playlist.");
-                    }
-                } else {
-                    errorPanel("Please fill all blanks.");
-                }
-            }
+    // UI to remove songs from the playlist
+    private class RemoveAction implements ActionListener {
+        private JTextField titleField;
+        private JTextField artistField;
+        private JTextField genreField;
+        
+        // EFFECTS: constructs a RemoveAction object
+        public RemoveAction() {
+            // blank
+        }
+        
+        // REQUIRES: an element in playlistJList must be selected
+        // MODIFIES: this
+        // EFFECTS: removes currently selected list item from playlist
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = playlistJList.getSelectedIndex();
+            playlist.removeSong(index);
+            updatePlaylist();
         }
     }
 }
