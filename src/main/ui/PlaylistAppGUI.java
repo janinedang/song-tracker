@@ -16,7 +16,6 @@ public class PlaylistAppGUI {
     private static final int HEIGHT = 700;
     private static final String JSON_STORE = "./data/playlist.json";
 
-    private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
     private ErrorPanel error;
@@ -39,9 +38,8 @@ public class PlaylistAppGUI {
         frame.setResizable(false);
 
         error = new ErrorPanel();
-        
+
         jsonReader = new JsonReader(JSON_STORE);
-        jsonWriter = new JsonWriter(JSON_STORE);
     }
 
     // EFFECTS: adds playlist panel to the frame
@@ -71,6 +69,7 @@ public class PlaylistAppGUI {
                 boolean loaded = loadPlaylist();
 
                 if (!loaded) {
+                    error.errorMessage("File could not be loaded.");
                     createPlaylist();
                 }
 
@@ -82,8 +81,10 @@ public class PlaylistAppGUI {
     }
 
     // MODIFIES: this
-    // EFFECTS: asks user to create a name for the playlist, if playlist name does not
-    // meet the requirements a system error will pop up until a playlist name that does
+    // EFFECTS: asks user to create a name for the playlist, if playlist name does
+    // not
+    // meet the requirements a system error will pop up until a playlist name that
+    // does
     // meet the requirement is entered.
     private void createPlaylist() {
         boolean validName = false;
@@ -93,16 +94,17 @@ public class PlaylistAppGUI {
                     "Please create a name for your playlist within 1-20 characters",
                     "Name: ",
                     JOptionPane.QUESTION_MESSAGE);
-
-            if (playlistName.length() != 0) {
-                if (playlistName.length() >= 1 && playlistName.length() <= 20) {
-                    validName = true;
-                    playlist = new Playlist(playlistName);
+            if (playlistName != null) {
+                if (playlistName.length() != 0) {
+                    if (playlistName.length() >= 1 && playlistName.length() <= 20) {
+                        validName = true;
+                        playlist = new Playlist(playlistName);
+                    } else {
+                        error.errorMessage("Your playlist name is not within the character limit.");
+                    }
                 } else {
-                    error.errorMessage("Your playlist name is not within the character limit.");
+                    error.errorMessage("No name was entered, try again.");
                 }
-            } else {
-                error.errorMessage("No name was entered, try again.");
             }
         }
     }

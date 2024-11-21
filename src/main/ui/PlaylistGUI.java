@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -11,6 +12,7 @@ import javax.swing.text.JTextComponent;
 
 import model.Playlist;
 import model.Song;
+import persistence.JsonWriter;
 
 // Graphical panel displaying list of songs in playlist and a button panel 
 // Referenced from the ListDemo
@@ -28,7 +30,8 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private static final String rateString = "Rate";
     private static final String reviewString = "Review";
     private static final String quitString = "Quit";
-    private static Border paneEdge = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    private static final Border paneEdge = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    private static final String JSON_STORE = "./data/playlist.json";
 
     private JButton addButton;
     private JButton removeButton;
@@ -37,25 +40,30 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private JButton quitButton;
     private ImageIcon logoIcon;
 
+    private JsonWriter jsonWriter;
+
     // EFFECTS: constructs a vertically scrollable panel displaying list of songs
     // from a given playlist and a button panel with add, remove, rate, and review
     // buttons
     public PlaylistGUI(Playlist playlist) {
         super(new BorderLayout());
-        error = new ErrorPanel();
+
         this.playlist = playlist;
+        error = new ErrorPanel();
+        jsonWriter = new JsonWriter(JSON_STORE);
+
         initializeTopPanel();
         initializePlaylistPanel();
         initializeButtonPanel();
     }
 
     // MODIFIES: this
-    // EFFECTS: creates a panel on the top of the screen with the playlist name on the left and
+    // EFFECTS: creates a panel on the top of the screen with the playlist name on
+    // the left and
     // the application logo on the right
     private void initializeTopPanel() {
         // Referenced from BorderDemo
-        // https://docs.oracle.com/javase/tutorial/uiswing/components/border.html 
-        
+        // https://docs.oracle.com/javase/tutorial/uiswing/components/border.html
 
         loadImage();
         JLabel logo = new JLabel(logoIcon);
@@ -118,13 +126,14 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         reviewButton = new JButton(reviewString);
         reviewButton.addActionListener(new ReviewAction());
 
+        quitButton = new JButton(quitString);
+        quitButton.addActionListener(new QuitAction());
+
         if (playlist.getPlaylist().size() == 0) {
             removeButton.setEnabled(false);
             rateButton.setEnabled(false);
             reviewButton.setEnabled(false);
         }
-
-        quitButton = new JButton(quitString);
 
         JPanel buttonPane = new JPanel();
         buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
@@ -332,6 +341,59 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                 }
             } else {
                 error.errorMessage("Please fill all blanks.");
+            }
+        }
+    }
+
+    // UI to quit the application
+    private class QuitAction implements ActionListener {
+
+        // EFFECTS: constructs a QuitAction object
+        public QuitAction() {
+            // blank
+        }
+
+        // MODIFIES: this
+        // EFFECTS: asks user if they want to save their playlist and quits the
+        // application
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            boolean validInput = false;
+
+            while (!validInput) {
+                int result = JOptionPane.showConfirmDialog(null, "Would you like to save your playlist?",
+                        "Save Playlist?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+
+                if (result == JOptionPane.YES_OPTION) {
+                    validInput = true;
+                    boolean saved = savePlaylist();
+
+                    if (!saved) {
+                        error.errorMessage("File was not able to save.");
+                    }
+
+                    System.exit(0);
+
+                } else if (result == JOptionPane.NO_OPTION) {
+                    validInput = true;
+                    System.exit(0);
+                }
+            }
+        }
+
+        // Referenced from the JsonSerialization Demo
+        // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+        // EFFECTS: saves the playlist to file
+        private boolean savePlaylist() {
+            try {
+                jsonWriter.open();
+                jsonWriter.write(playlist);
+                jsonWriter.close();
+                return true;
+            } catch (FileNotFoundException e) {
+                return false;
             }
         }
     }
