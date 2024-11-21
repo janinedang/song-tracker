@@ -4,8 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.text.JTextComponent;
 
 import model.Playlist;
 import model.Song;
@@ -19,17 +21,21 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private DefaultListModel<Song> playlistModel;
     private ErrorPanel error;
 
+    private static final int FACTOR = 3;
+
     private static final String addString = "Add";
     private static final String removeString = "Remove";
     private static final String rateString = "Rate";
     private static final String reviewString = "Review";
     private static final String quitString = "Quit";
+    private static Border paneEdge = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
     private JButton addButton;
     private JButton removeButton;
     private JButton rateButton;
     private JButton reviewButton;
     private JButton quitButton;
+    private ImageIcon logoIcon;
 
     // EFFECTS: constructs a vertically scrollable panel displaying list of songs
     // from a given playlist and a button panel with add, remove, rate, and review
@@ -38,8 +44,46 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         super(new BorderLayout());
         error = new ErrorPanel();
         this.playlist = playlist;
+        initializeTopPanel();
         initializePlaylistPanel();
         initializeButtonPanel();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates a panel on the top of the screen with the playlist name on the left and
+    // the application logo on the right
+    private void initializeTopPanel() {
+        // Referenced from BorderDemo
+        // https://docs.oracle.com/javase/tutorial/uiswing/components/border.html 
+        
+
+        loadImage();
+        JLabel logo = new JLabel(logoIcon);
+
+        JLabel playlistName = new JLabel(playlist.getName());
+        playlistName.setFont(new Font("Sans-Serif", Font.BOLD, 20));
+
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(playlistName, BorderLayout.WEST);
+        topPanel.add(logo, BorderLayout.EAST);
+        topPanel.setBorder(paneEdge);
+
+        add(topPanel, BorderLayout.NORTH);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads and resizes logoIcon
+    // Referenced from https://stackoverflow.com/a/18335435
+    private void loadImage() {
+        String sep = System.getProperty("file.separator");
+        logoIcon = new ImageIcon(System.getProperty("user.dir") + sep
+                + "data" + sep + "music_tracker_logo.png");
+
+        Image logoImage = logoIcon.getImage();
+        Image logoImageNew = logoImage.getScaledInstance(479 / FACTOR, 70 / FACTOR, java.awt.Image.SCALE_SMOOTH);
+
+        logoIcon = new ImageIcon(logoImageNew);
     }
 
     // MODIFIES: this
@@ -67,15 +111,18 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
 
         removeButton = new JButton(removeString);
         removeButton.addActionListener(new RemoveAction());
-        removeButton.setEnabled(false);
 
         rateButton = new JButton(rateString);
         rateButton.addActionListener(new RateAction());
-        rateButton.setEnabled(false);
 
         reviewButton = new JButton(reviewString);
         reviewButton.addActionListener(new ReviewAction());
-        reviewButton.setEnabled(false);
+
+        if (playlist.getPlaylist().size() == 0) {
+            removeButton.setEnabled(false);
+            rateButton.setEnabled(false);
+            reviewButton.setEnabled(false);
+        }
 
         quitButton = new JButton(quitString);
 
@@ -229,7 +276,8 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
             // blank
         }
 
-        // REQUIRES: an element in playlistJList must be selected, user input must be a number
+        // REQUIRES: an element in playlistJList must be selected, user input must be a
+        // number
         // MODIFIES: this
         // EFFECTS: rates currently selected list item from playlist
         @Override
@@ -263,7 +311,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
             // blank
         }
 
-        // REQUIRES: an element in playlistJList must be selected, user input must be 
+        // REQUIRES: an element in playlistJList must be selected, user input must be
         // within 1-150 characters
         // MODIFIES: this
         // EFFECTS: reviews currently selected list item from playlist
