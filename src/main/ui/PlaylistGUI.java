@@ -17,6 +17,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private Playlist playlist;
     private JList<Song> playlistJList;
     private DefaultListModel<Song> playlistModel;
+    private ErrorPanel error;
 
     private static final String addString = "Add";
     private static final String removeString = "Remove";
@@ -35,7 +36,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     // buttons
     public PlaylistGUI(Playlist playlist) {
         super(new BorderLayout());
-
+        error = new ErrorPanel();
         this.playlist = playlist;
         initializePlaylistPanel();
         initializeButtonPanel();
@@ -115,14 +116,6 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         addSongsToPlaylistModel();
     }
 
-    // EFFECTS: creates an error panel displaying the given message
-    // Referenced from AlarmSystem
-    // https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
-    private void errorPanel(String message) {
-        JOptionPane.showMessageDialog(null, message, "System Error",
-                JOptionPane.ERROR_MESSAGE);
-    }
-
     // MODIFIES: this
     // EFFECTS: updates add, rate, review, and remove buttons when
     // selection of list cell changes
@@ -175,10 +168,10 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                         playlist.addSong(title, artist, genre);
                         updatePlaylist();
                     } else {
-                        errorPanel("This song is already in your playlist.");
+                        error.errorMessage("This song is already in your playlist.");
                     }
                 } else {
-                    errorPanel("Please fill all blanks.");
+                    error.errorMessage("Please fill all blanks.");
                 }
             }
 
@@ -254,10 +247,10 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                     playlist.rateSong(index, rating);
                     updatePlaylist();
                 } else {
-                    errorPanel(userRating + " is not an accepted rating.");
+                    error.errorMessage(userRating + " is not an accepted rating.");
                 }
             } else {
-                errorPanel("Please fill all blanks.");
+                error.errorMessage("Please fill all blanks.");
             }
         }
     }
@@ -287,10 +280,10 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                     playlist.reviewSong(index, review);
                     updatePlaylist();
                 } else {
-                    errorPanel("Your review is not within the character limit.");
+                    error.errorMessage("Your review is not within the character limit.");
                 }
             } else {
-                errorPanel("Please fill all blanks.");
+                error.errorMessage("Please fill all blanks.");
             }
         }
     }
