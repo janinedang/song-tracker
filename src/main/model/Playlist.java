@@ -38,6 +38,13 @@ public class Playlist implements Writable {
         playlist.remove(scrapSong);
     }
 
+    // REQUIRES: playlist.size() > 0, 0 <= index <= playlist.size() - 1
+    // MODIFIES: this
+    // EFFECTS: removes song in playlist at the given index
+    public void removeSong(int index) {
+        playlist.remove(index);
+    }
+
     // REQUIRES: song with the given title && given artist in playlist,
     // length of title > 0, length of artist > 0, 1 <= rating <= 5
     // MODIFIES: this

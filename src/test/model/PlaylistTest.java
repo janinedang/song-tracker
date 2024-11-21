@@ -75,6 +75,18 @@ public class PlaylistTest {
     }
 
     @Test
+    void testRemoveIndexSongItemInList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        ArrayList<Song> songs = testPlaylist.getPlaylist();
+        assertEquals(1, songs.size());
+        assertTrue(testPlaylist.inPlaylist("Butter", "BTS"));
+        testPlaylist.removeSong(0);
+
+        assertEquals(0, songs.size());
+        assertFalse(testPlaylist.inPlaylist("Butter", "BTS"));
+    }
+
+    @Test
     void testRemoveFirstItemLongList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
@@ -99,11 +111,59 @@ public class PlaylistTest {
     }
 
     @Test
+    void testRemoveIndexFirstItemLongList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
+        testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
+        testPlaylist.removeSong(0);
+        ArrayList<Song> songs = testPlaylist.getPlaylist();
+
+        assertEquals(2, songs.size());
+        assertFalse(testPlaylist.inPlaylist("Butter", "BTS"));
+
+        assertEquals("Clementine", songs.get(0).getTitle());
+        assertEquals("grentperez", songs.get(0).getArtist());
+        assertEquals("Indie Pop", songs.get(0).getGenre());
+        assertEquals(1, songs.get(0).getRating());
+        assertEquals("", songs.get(0).getReview());
+
+        assertEquals("Get You", songs.get(1).getTitle());
+        assertEquals("Daniel Caesar", songs.get(1).getArtist());
+        assertEquals("R&B", songs.get(1).getGenre());
+        assertEquals(1, songs.get(1).getRating());
+        assertEquals("", songs.get(1).getReview());
+    }
+
+    @Test
     void testRemoveMiddleItemLongList() {
         testPlaylist.addSong("Butter", "BTS", "KPop");
         testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
         testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
         testPlaylist.removeSong("Clementine", "grentperez");
+        ArrayList<Song> songs = testPlaylist.getPlaylist();
+
+        assertEquals(2, songs.size());
+        assertFalse(testPlaylist.inPlaylist("Clementine", "grentperez"));
+
+        assertEquals("Butter", songs.get(0).getTitle());
+        assertEquals("BTS", songs.get(0).getArtist());
+        assertEquals("KPop", songs.get(0).getGenre());
+        assertEquals(1, songs.get(0).getRating());
+        assertEquals("", songs.get(0).getReview());
+
+        assertEquals("Get You", songs.get(1).getTitle());
+        assertEquals("Daniel Caesar", songs.get(1).getArtist());
+        assertEquals("R&B", songs.get(1).getGenre());
+        assertEquals(1, songs.get(1).getRating());
+        assertEquals("", songs.get(1).getReview());
+    }
+
+    @Test
+    void testRemoveIndexMiddleItemLongList() {
+        testPlaylist.addSong("Butter", "BTS", "KPop");
+        testPlaylist.addSong("Clementine", "grentperez", "Indie Pop");
+        testPlaylist.addSong("Get You", "Daniel Caesar", "R&B");
+        testPlaylist.removeSong(1);
         ArrayList<Song> songs = testPlaylist.getPlaylist();
 
         assertEquals(2, songs.size());
