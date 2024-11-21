@@ -73,6 +73,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         rateButton.setEnabled(false);
 
         reviewButton = new JButton(reviewString);
+        reviewButton.addActionListener(new ReviewAction());
         reviewButton.setEnabled(false);
 
         quitButton = new JButton(quitString);
@@ -227,17 +228,17 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         }
     }
 
-    // UI to remove songs from the playlist
+    // UI to rate songs from the playlist
     private class RateAction implements ActionListener {
 
-        // EFFECTS: constructs a RemoveAction object
+        // EFFECTS: constructs a RateAction object
         public RateAction() {
             // blank
         }
 
         // REQUIRES: an element in playlistJList must be selected, user input must be a number
         // MODIFIES: this
-        // EFFECTS: removes currently selected list item from playlist
+        // EFFECTS: rates currently selected list item from playlist
         @Override
         public void actionPerformed(ActionEvent e) {
             int index = playlistJList.getSelectedIndex();
@@ -254,6 +255,39 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                     updatePlaylist();
                 } else {
                     errorPanel(userRating + " is not an accepted rating.");
+                }
+            } else {
+                errorPanel("Please fill all blanks.");
+            }
+        }
+    }
+
+    // UI to review songs from the playlist
+    private class ReviewAction implements ActionListener {
+
+        // EFFECTS: constructs a ReviewAction object
+        public ReviewAction() {
+            // blank
+        }
+
+        // REQUIRES: an element in playlistJList must be selected, user input must be 
+        // within 1-150 characters
+        // MODIFIES: this
+        // EFFECTS: reviews currently selected list item from playlist
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int index = playlistJList.getSelectedIndex();
+            String review = JOptionPane.showInputDialog(null,
+                    "Please enter a review within 1-150 characters",
+                    "Review: ",
+                    JOptionPane.QUESTION_MESSAGE);
+
+            if (review.length() != 0) {
+                if (review.length() >= 1 && review.length() <= 150) {
+                    playlist.reviewSong(index, review);
+                    updatePlaylist();
+                } else {
+                    errorPanel("Your review is not within the character limit.");
                 }
             } else {
                 errorPanel("Please fill all blanks.");
