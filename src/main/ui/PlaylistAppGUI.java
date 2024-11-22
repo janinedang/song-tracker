@@ -75,7 +75,6 @@ public class PlaylistAppGUI {
                 boolean loaded = loadPlaylist();
 
                 if (!loaded) {
-                    error.errorMessage("File could not be loaded.");
                     createPlaylist();
                 }
 
