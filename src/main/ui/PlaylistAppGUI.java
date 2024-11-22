@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import model.Playlist;
 import persistence.JsonReader;
@@ -22,10 +23,15 @@ public class PlaylistAppGUI {
     private JFrame frame;
     private Playlist playlist;
 
+    private ImageIcon bgIcon;
+    private Image bgImage;
+
     public PlaylistAppGUI() {
         initialize();
         loadSave();
         addPlaylistPanel();
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
     }
 
     // EFFECTS: initializes frame, error panel, json reader, and json writer
@@ -34,8 +40,8 @@ public class PlaylistAppGUI {
         frame.setLayout(new BorderLayout());
         frame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
         frame.setResizable(false);
+        
 
         error = new ErrorPanel();
 
@@ -48,7 +54,7 @@ public class PlaylistAppGUI {
         playlistContentPane.setOpaque(true);
 
         frame.add(playlistContentPane, BorderLayout.CENTER);
-        frame.setVisible(true);
+        
         playlistContentPane.setOpaque(false);
     }
 

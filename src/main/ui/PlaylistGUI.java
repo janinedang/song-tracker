@@ -39,6 +39,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private JButton reviewButton;
     private JButton quitButton;
     private ImageIcon logoIcon;
+    private ImageIcon backgroundIcon;
 
     private JsonWriter jsonWriter;
 
@@ -67,15 +68,19 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
 
         loadImage();
         JLabel logo = new JLabel(logoIcon);
+        JLabel background = new JLabel(backgroundIcon);
 
         JLabel playlistName = new JLabel(playlist.getName());
         playlistName.setFont(new Font("Sans-Serif", Font.BOLD, 20));
+        playlistName.setForeground(Color.WHITE);
 
         JPanel topPanel = new JPanel();
         topPanel.setLayout(new BorderLayout());
         topPanel.add(playlistName, BorderLayout.WEST);
+        topPanel.add(background, BorderLayout.CENTER);
         topPanel.add(logo, BorderLayout.EAST);
         topPanel.setBorder(paneEdge);
+        topPanel.setBackground(new Color(194, 225, 237));
 
         add(topPanel, BorderLayout.NORTH);
     }
@@ -85,13 +90,20 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     // Referenced from https://stackoverflow.com/a/18335435
     private void loadImage() {
         String sep = System.getProperty("file.separator");
+
         logoIcon = new ImageIcon(System.getProperty("user.dir") + sep
-                + "data" + sep + "music_tracker_logo.png");
+                + "data" + sep + "music_tracker_logo_white.png");
 
         Image logoImage = logoIcon.getImage();
         Image logoImageNew = logoImage.getScaledInstance(479 / FACTOR, 70 / FACTOR, java.awt.Image.SCALE_SMOOTH);
 
+        ImageIcon img = new ImageIcon(System.getProperty("user.dir") + sep
+                + "data" + sep + "blue_bg.png");
+        Image background = img.getImage();
+        background = background.getScaledInstance(600, 50, java.awt.Image.SCALE_SMOOTH);
+
         logoIcon = new ImageIcon(logoImageNew);
+        backgroundIcon = new ImageIcon(background);
     }
 
     // MODIFIES: this
