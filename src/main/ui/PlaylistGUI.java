@@ -126,20 +126,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: creates a panel displaying the add, remove, rate, and review song
     // buttons
     private void initializeButtonPanel() {
-        addButton = new JButton(addString);
-        addButton.addActionListener(new AddAction());
-
-        removeButton = new JButton(removeString);
-        removeButton.addActionListener(new RemoveAction());
-
-        rateButton = new JButton(rateString);
-        rateButton.addActionListener(new RateAction());
-
-        reviewButton = new JButton(reviewString);
-        reviewButton.addActionListener(new ReviewAction());
-
-        quitButton = new JButton(quitString);
-        quitButton.addActionListener(new QuitAction());
+        initializeButtons();
 
         if (playlist.getPlaylist().size() == 0) {
             removeButton.setEnabled(false);
@@ -158,6 +145,23 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
 
         buttonPane.setBorder(BorderFactory.createLineBorder(Color.black));
         add(buttonPane, BorderLayout.SOUTH);
+    }
+
+    private void initializeButtons() {
+        addButton = new JButton(addString);
+        addButton.addActionListener(new AddAction());
+
+        removeButton = new JButton(removeString);
+        removeButton.addActionListener(new RemoveAction());
+
+        rateButton = new JButton(rateString);
+        rateButton.addActionListener(new RateAction());
+
+        reviewButton = new JButton(reviewString);
+        reviewButton.addActionListener(new ReviewAction());
+
+        quitButton = new JButton(quitString);
+        quitButton.addActionListener(new QuitAction());
     }
 
     // MODIFIES: this
