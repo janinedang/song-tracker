@@ -3,11 +3,12 @@ package ui;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+// Represents an Error Panel displaying an error message
 public class ErrorPanel extends JPanel {
+
     // EFFECTS: creates an error panel displaying the given message
     // Referenced from AlarmSystem
     // https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
-
     public ErrorPanel() {
         // blank
     }
