@@ -8,9 +8,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.text.JTextComponent;
 
-import model.EventLog;
 import model.Playlist;
 import model.Song;
 import persistence.JsonWriter;
@@ -406,12 +404,6 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                 }
             }
         }
-
-        private void printLog() {
-        for (model.Event event : EventLog.getInstance()) {
-            System.out.println(event.toString() + "\n");
-        }
-    }
 
         // Referenced from the JsonSerialization Demo
         // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
