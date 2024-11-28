@@ -41,3 +41,14 @@ Creep by Radiohead was given the review: 'I am a creep... I am a weirdo...'.
 
 Thu Nov 28 05:15:03 PST 2024
 Creep by Radiohead was removed from the playlist.
+
+## Phase 4: Task 3
+*Changes I would make*
+I would take the private classes (AddAction, RemoveAction, RateAction, and ReviewAction) from inside the PlaylistGUI class and create completely new classes for each of these classes. This change would make it easier to edit the functionality of these classes as these classes would be more accessible this way. 
+
+Additionally, I would make each of these classes all extend the same abstract class, as there is a lot of repeated code across these classes. This would result in less code duplication and improve coupling.
+
+I would also create a new Button class that creates a new JButton with a given name and a given ActionListener, as all of my buttons require a specific ActionListener. This would reduce the repetition of creating new buttons and adding ActionListeners in my code.
+
+Another change I would make is to move the quit button from the PlaylistGUI class to the PlaylistAppGUI, as the quit button is the reason that PlaylistGUI has a field of JsonWriter. This change would make it so that PlaylistAppGUI has fields for both JsonReader and JsonWriter, and would make it so that I can deal with the code for saving and loading files in one place.
+
