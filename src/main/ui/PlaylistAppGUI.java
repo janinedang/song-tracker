@@ -1,18 +1,15 @@
 package ui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import model.Event;
 import model.EventLog;
 import model.Playlist;
 import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import java.awt.*;
 import java.io.IOException;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.event.WindowAdapter;
 
 // Playlist Application Graphical User Interface
@@ -27,6 +24,7 @@ public class PlaylistAppGUI extends JFrame {
     private ErrorPanel error;
     private Playlist playlist;
 
+    // EFFECTS: initializes JFrame and asks user to load save
     public PlaylistAppGUI() {
         initialize();
         loadSave();
@@ -44,6 +42,7 @@ public class PlaylistAppGUI extends JFrame {
         });
     }
 
+    // EFFECTS: prints out each event recorded in the event log
     private void printLog() {
         for (Event event : EventLog.getInstance()) {
             System.out.println(event.toString() + "\n");
@@ -102,10 +101,8 @@ public class PlaylistAppGUI extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: asks user to create a name for the playlist, if playlist name does
-    // not
-    // meet the requirements a system error will pop up until a playlist name that
-    // does
-    // meet the requirement is entered.
+    // not meet the requirements a system error will pop up until a playlist name that
+    // does meet the requirement is entered.
     private void createPlaylist() {
         boolean validName = false;
 
