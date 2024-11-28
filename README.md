@@ -27,3 +27,17 @@ This project is of interest to me because I have always enjoyed music. I listen 
 - You can locate my visual component by first creating/loading a playlist to get to the main playlist page, where a PNG of my application's logo is located at the top right.
 - You can save the state of my application by clicking on the "Quit" button at the bottom of the window, which will then prompt you to either save or not save your playlist before exiting the application.
 - You can reload the state of my application by starting my application, which will prompt you to either load the state of the application or start new.
+
+## Phase 4: Task 2
+
+Thu Nov 28 05:13:59 PST 2024
+Creep by Radiohead was added to the playlist.
+
+Thu Nov 28 05:14:08 PST 2024
+Creep by Radiohead was rated 4.
+
+Thu Nov 28 05:14:19 PST 2024
+Creep by Radiohead was given the review: 'I am a creep... I am a weirdo...'.
+
+Thu Nov 28 05:15:03 PST 2024
+Creep by Radiohead was removed from the playlist.

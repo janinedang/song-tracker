@@ -3,16 +3,21 @@ package ui;
 import javax.swing.*;
 import javax.swing.border.Border;
 
+import model.Event;
+import model.EventLog;
 import model.Playlist;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import java.awt.*;
 import java.io.IOException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowAdapter;
 
 // Playlist Application Graphical User Interface
 // Referenced from https://youtu.be/4BRUmU-ETRk?si=dMzs0I5Nene-i4Sl
-public class PlaylistAppGUI {
+public class PlaylistAppGUI extends JFrame {
     private static final int WIDTH = 1000;
     private static final int HEIGHT = 700;
     private static final String JSON_STORE = "./data/playlist.json";
@@ -20,27 +25,37 @@ public class PlaylistAppGUI {
     private JsonReader jsonReader;
 
     private ErrorPanel error;
-    private JFrame frame;
     private Playlist playlist;
-
-    private ImageIcon bgIcon;
-    private Image bgImage;
 
     public PlaylistAppGUI() {
         initialize();
         loadSave();
         addPlaylistPanel();
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
+        setVisible(true);
+        setLocationRelativeTo(null);
+        
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                printLog();
+                dispose();
+                System.exit(0);
+            }
+        });
     }
 
-    // EFFECTS: initializes frame, error panel, json reader, and json writer
+    private void printLog() {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event.toString() + "\n");
+        }
+    }
+
+    // EFFECTS: initializes error panel, json reader, and json writer
     private void initialize() {
-        frame = new JFrame("Playlist App");
-        frame.setLayout(new BorderLayout());
-        frame.setMinimumSize(new Dimension(WIDTH, HEIGHT));
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        setLayout(new BorderLayout());
+        setMinimumSize(new Dimension(WIDTH, HEIGHT));
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
         
 
         error = new ErrorPanel();
@@ -50,10 +65,10 @@ public class PlaylistAppGUI {
 
     // EFFECTS: adds playlist panel to the frame
     private void addPlaylistPanel() {
-        JComponent playlistContentPane = new PlaylistGUI(playlist);
+        JComponent playlistContentPane = new PlaylistGUI(this, playlist);
         playlistContentPane.setOpaque(true);
 
-        frame.add(playlistContentPane, BorderLayout.CENTER);
+        add(playlistContentPane, BorderLayout.CENTER);
         
         playlistContentPane.setOpaque(false);
     }
@@ -66,7 +81,7 @@ public class PlaylistAppGUI {
         boolean validInput = false;
 
         while (!validInput) {
-            int result = JOptionPane.showConfirmDialog(frame, "Would you like to load your save?", "Load Save?",
+            int result = JOptionPane.showConfirmDialog(this, "Would you like to load your save?", "Load Save?",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
 

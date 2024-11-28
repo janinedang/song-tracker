@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.JTextComponent;
 
+import model.EventLog;
 import model.Playlist;
 import model.Song;
 import persistence.JsonWriter;
@@ -22,6 +23,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private JList<Song> playlistJList;
     private DefaultListModel<Song> playlistModel;
     private ErrorPanel error;
+    private JFrame frame;
 
     private static final int FACTOR = 3;
 
@@ -46,10 +48,11 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     // EFFECTS: constructs a vertically scrollable panel displaying list of songs
     // from a given playlist and a button panel with add, remove, rate, and review
     // buttons
-    public PlaylistGUI(Playlist playlist) {
+    public PlaylistGUI(JFrame frame, Playlist playlist) {
         super(new BorderLayout());
 
         this.playlist = playlist;
+        this.frame = frame;
         error = new ErrorPanel();
         jsonWriter = new JsonWriter(JSON_STORE);
 
@@ -389,15 +392,21 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
                     if (!saved) {
                         error.errorMessage("File was not able to save.");
                     }
-
-                    System.exit(0);
+                    
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
 
                 } else if (result == JOptionPane.NO_OPTION) {
                     validInput = true;
-                    System.exit(0);
+                    frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 }
             }
         }
+
+        private void printLog() {
+        for (model.Event event : EventLog.getInstance()) {
+            System.out.println(event.toString() + "\n");
+        }
+    }
 
         // Referenced from the JsonSerialization Demo
         // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo

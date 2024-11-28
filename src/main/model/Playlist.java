@@ -27,6 +27,7 @@ public class Playlist implements Writable {
     public void addSong(String title, String artist, String genre) {
         Song newSong = new Song(title, artist, genre);
         playlist.add(newSong);
+        EventLog.getInstance().logEvent(new Event(title + " by " + artist + " was added to the playlist."));
     }
 
     // REQUIRES: song with the given title && given artist in playlist,
@@ -36,13 +37,18 @@ public class Playlist implements Writable {
     public void removeSong(String title, String artist) {
         Song scrapSong = getSong(title, artist);
         playlist.remove(scrapSong);
+        EventLog.getInstance().logEvent(new Event(title + " by " + artist + " was removed from the playlist."));
     }
 
     // REQUIRES: playlist.size() > 0, 0 <= index <= playlist.size() - 1
     // MODIFIES: this
     // EFFECTS: removes song in playlist at the given index
     public void removeSong(int index) {
-        playlist.remove(index);
+        Song song = playlist.get(index);
+        String title = song.getTitle();
+        String artist = song.getArtist();
+
+        removeSong(title, artist);
     }
 
     // REQUIRES: song with the given title && given artist in playlist,
@@ -51,8 +57,10 @@ public class Playlist implements Writable {
     // EFFECTS: sets song with given title and given artist in this playlist to have
     // the given rating
     public void rateSong(String title, String artist, int rating) {
-        Song songRate = getSong(title, artist);
-        songRate.setRating(rating);
+        Song song = getSong(title, artist);
+        song.setRating(rating);
+
+        EventLog.getInstance().logEvent(new Event(title + " by " + artist + " was rated " + rating + "."));
     }
 
     // REQUIRES: playlist.size() > 0, 0 <= index <= playlist.size() - 1,
@@ -61,8 +69,11 @@ public class Playlist implements Writable {
     // EFFECTS: sets the song at the given index in this playlist
     // to have the given rating
     public void rateSong(int index, int rating) {
-        Song songReview = playlist.get(index);
-        songReview.setRating(rating);
+        Song song = playlist.get(index);
+        String title = song.getTitle();
+        String artist = song.getArtist();
+
+        rateSong(title, artist, rating);
     }
 
     // REQUIRES: song with the given title && given artist in playlist,
@@ -71,8 +82,10 @@ public class Playlist implements Writable {
     // EFFECTS: sets the song with the given title and given artist in this playlist
     // to have the given review
     public void reviewSong(String title, String artist, String review) {
-        Song songReview = getSong(title, artist);
-        songReview.setReview(review);
+        Song song = getSong(title, artist);
+        song.setReview(review);
+
+        EventLog.getInstance().logEvent(new Event(title + " by " + artist + " was given the review: '" + review + "'."));
     }
 
     // REQUIRES: playlist.size() > 0, 0 <= index <= playlist.size() - 1,
@@ -81,8 +94,11 @@ public class Playlist implements Writable {
     // EFFECTS: sets the song at the given index in this playlist
     // to have the given review
     public void reviewSong(int index, String review) {
-        Song songReview = playlist.get(index);
-        songReview.setReview(review);
+        Song song = playlist.get(index);
+        String title = song.getTitle();
+        String artist = song.getArtist();
+
+        reviewSong(title, artist, review);
     }
 
     // REQUIRES: song with the given title && given artist in playlist,
@@ -106,16 +122,13 @@ public class Playlist implements Writable {
     // is in this playlist, false if song with given title and given artist
     // is not in this playlist
     public boolean inPlaylist(String title, String artist) {
-        boolean songInPlaylist = false;
-
         for (Song nextSong : playlist) {
             if (nextSong.getTitle().equals(title) && nextSong.getArtist().equals(artist)) {
-                songInPlaylist = true;
-                break;
+                return true;
             }
         }
 
-        return songInPlaylist;
+        return false;
     }
 
     public ArrayList<Song> getPlaylist() {
