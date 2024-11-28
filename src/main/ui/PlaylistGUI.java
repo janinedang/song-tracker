@@ -24,6 +24,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
     private DefaultListModel<Song> playlistModel;
     private ErrorPanel error;
     private JFrame frame;
+    private PlaylistCellRenderer cellRenderer;
 
     private static final int FACTOR = 3;
 
@@ -53,8 +54,10 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
 
         this.playlist = playlist;
         this.frame = frame;
+
         error = new ErrorPanel();
         jsonWriter = new JsonWriter(JSON_STORE);
+        cellRenderer = new PlaylistCellRenderer();
 
         initializeTopPanel();
         initializePlaylistPanel();
@@ -116,7 +119,7 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         addSongsToPlaylistModel();
 
         playlistJList = new JList(playlistModel);
-        playlistJList.setCellRenderer(new PlaylistCellRenderer());
+        playlistJList.setCellRenderer(cellRenderer);
         playlistJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         playlistJList.setSelectedIndex(0);
         playlistJList.addListSelectionListener(this);
