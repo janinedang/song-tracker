@@ -153,6 +153,8 @@ public class PlaylistGUI extends JPanel implements ListSelectionListener {
         add(buttonPane, BorderLayout.SOUTH);
     }
 
+    // EFFECTS: initializes addButton, removeButton, rateButton, reviewButton,
+    // and quitButton, and adds the appropriate ActionListener to each button
     private void initializeButtons() {
         addButton = new JButton(addString);
         addButton.addActionListener(new AddAction());
